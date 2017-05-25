@@ -1,0 +1,4 @@
+例如，试用反射的 this.getClass().getMethod(str_Method, null).invoke(this, null); 
+以上getMethod返回null
+
+如果是类交给Spring的话  没有将普通方法注入；
