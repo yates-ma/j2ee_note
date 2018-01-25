@@ -1,0 +1,101 @@
+思路：
+
+mybatis.xml：
+将SqlSessionFactoryBean配置到多个<beans>下（注意beans必须在xml文件的最下面，而且得是spring-beans-4.2.xsd）
+<beans>标签里写入profile="xxx"，xxx作为标识
+定义一个继承自AbstractAnnotationConfigDispatcherServletInitializer的类，写激活<beans>profile的逻辑（这个类应当放在尽早扫描的目录下，如service层）
+
+beans
+<beans ...
+          xsi:schemaLocation="     
+          http://www.springframework.org/schema/beans     
+          http://www.springframework.org/schema/beans/spring-beans-4.2.xsd  
+          ...>
+    ...      
+    <context:component-scan base-package="com.yun.service"/>
+    ...
+    <beans profile="mysql">
+          <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+          <property name="dataSource" ref="dataSource" />
+          <property name="plugins" ref="paginationInterceptor" />
+          <property name="typeAliasesPackage" value="com.yun.dto" />
+            <property name="mapperLocations">
+              <array>
+                      <value>classpath:com/yun/mapper/common/*Mapper.xml</value>
+                      <value>classpath:com/yun/mapper/mysql/*Mapper.xml</value>
+                  </array>
+            </property>
+        </bean>
+      </beans>
+      <beans profile="oracle">
+          <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+          <property name="dataSource" ref="dataSource" />
+          <property name="plugins" ref="paginationInterceptor" />
+          <property name="typeAliasesPackage" value="com.yun.dto" />
+            <property name="mapperLocations">
+              <array>
+                      <value>classpath:com/yun/mapper/common/*Mapper.xml</value>
+                      <value>classpath:com/yun/mapper/oracle/*Mapper.xml</value>
+                  </array>
+            </property>
+        </bean>
+      </beans>
+</beans>
+
+自定义的激活类
+public class MyWebInitializerService extends
+	AbstractAnnotationConfigDispatcherServletInitializer {
+
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		super.onStartup(servletContext);
+		
+		//servletContext.setInitParameter("spring.profiles.active", "live");
+
+		//Set multiple active profile
+		//servletContext.setInitParameter("spring.profiles.active", "dev, testdb");
+		
+		Properties prop = new Properties();     
+        try{
+        	String realPath = servletContext.getRealPath("")+"\\WEB-INF\\classes\\jdbc.properties";
+            //读取属性文件a.properties
+            InputStream in = new BufferedInputStream (new FileInputStream(realPath));
+            prop.load(in);     ///加载属性列表
+            Iterator<String> it=prop.stringPropertyNames().iterator();
+            while(it.hasNext()){
+                String key=it.next();
+                String value=prop.getProperty(key);
+                System.out.println(key+":"+value);
+                if(key.equals("datasource.connection.driverclass") && value.indexOf("oracle") > -1) {
+                	servletContext.setInitParameter("spring.profiles.active", "oracle");
+                	break;
+                } else if(key.equals("datasource.connection.driverclass") && value.indexOf("mysql") > -1) {
+                	servletContext.setInitParameter("spring.profiles.active", "mysql");
+                	break;
+                }
+            }
+            in.close();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+	}
+...
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+如何激活beans的profile
+http://www.mkyong.com/spring-mvc/spring-mvc-how-to-set-active-profile/
