@@ -1,0 +1,31 @@
+一般用spring的注解方式：
+<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager" />
+
+Controller层：
+public class MyController {
+    public String myDoStr(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            myService.doSth();
+        } catch(e) {
+            return "bad";
+        }
+        return "good";
+    }
+}
+
+Service层
+@Transactional
+public class MyService {
+   public void doStr() {
+      try {
+         myDao.func1();
+      } catch(e) {
+         throw new RuntimeException("func1 is bad");
+      }
+      try {
+         myDao.func2();
+      } catch(e) {
+         throw new RuntimeException("func2 is bad");
+      }
+   }
+}
