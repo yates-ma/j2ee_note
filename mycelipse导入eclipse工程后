@@ -1,6 +1,6 @@
 1. 配置本地jdk（比如本地是1.7 myeclipse自带的是1.6 并且工程需要高版本的jdk，那就要配置本地的）
 
-2. 解决webroot/webinf/lib/jar包没生效（以下链接是处理工程下的.settings目录下的文件，如果没有.settgins目录需要手动创建一个）
+2. 解决webroot/webinf/lib/jar包没生效（以下链接是处理工程下的.settings目录下的文件，如果没有.settgins目录需要手动创建一个，或者从其他好的MyEclipse工程拷贝一份）
 http://blog.csdn.net/tiancai1202000/article/details/49178721
 
 3. 解决java文件和工程文件报错：提高编译环境java版本
