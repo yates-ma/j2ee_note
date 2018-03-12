@@ -1,0 +1,15 @@
+在工程目录下的.mymetadata文件中：
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="Yates_Project"
+  id="myeclipse.1520214947662"
+  context-root="/Yates_Project"
+  j2ee-spec="6.0"
+  archive="Yates_Project.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
+这样一来，在部署/打包时，生成的根目录文件夹就是Yates_Project
