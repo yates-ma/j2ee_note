@@ -1,1 +1,10 @@
+我的项目里发下别人使用了
+ApplicationContext ctx = new ClassPathXmlApplicationContext(
+					"spring*.xml");
+          
+这样一来，bean会被扫描两次
+相当于重新初始化一遍！！！
+
+因此，不推荐用ClassPathXmlApplicationContext
+
 https://www.cnblogs.com/caryfang/p/5675178.html
