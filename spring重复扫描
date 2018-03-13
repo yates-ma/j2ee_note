@@ -7,4 +7,40 @@ ApplicationContext ctx = new ClassPathXmlApplicationContext(
 
 因此，不推荐用ClassPathXmlApplicationContext
 
+另外，为了使用@PostConstruct来初始化执行一个方法时，如果方法里用到多个层（如Service，Dao），则需要提前扫描bean（使用<context:component-scan>），
+但此时要注意不要在spring的配置文件和springMVC的配置文件里重复扫描包，
+最后我只在spring的配置文件（我的工程里是spring-mybatis.xml）扫描了一次（即整个工程只使用一次<context:component-scan>）
+
+另外，
 https://www.cnblogs.com/caryfang/p/5675178.html
+
+根据以上链接中提到的，我的web.xml最终是这样的
+...
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+			classpath:/spring-mybatis.xml
+		</param-value>
+  </context-param>
+  ...
+  <servlet>
+    <servlet-name>springMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springMVC</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  ...
+  
+  得出结论：只要不重复扫描包就行，
+  至于spring的xml文件名，不一定非得是applicationContext.xml  //我在项目中用的是spring-mybatis.xml
+  而springMVC的xml文件名，也不一定非是DispatcherServlet中{servlet-name}-servlet.xml文件名   //我用spring-servlet.xml
