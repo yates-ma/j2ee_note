@@ -1,4 +1,4 @@
-我的项目里发下别人使用了
+我的项目里发现别人使用了
 ApplicationContext ctx = new ClassPathXmlApplicationContext(
 					"spring*.xml");
           
