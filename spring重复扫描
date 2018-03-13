@@ -9,7 +9,9 @@ ApplicationContext ctx = new ClassPathXmlApplicationContext(
 
 另外，为了使用@PostConstruct来初始化执行一个方法时，如果方法里用到多个层（如Service，Dao），则需要提前扫描bean（使用<context:component-scan>），
 但此时要注意不要在spring的配置文件和springMVC的配置文件里重复扫描包，
-最后我只在spring的配置文件（我的工程里是spring-mybatis.xml）扫描了一次（即整个工程只使用一次<context:component-scan>）
+
+最后我只在springMVC的配置文件（我的工程里是spring-servlet.xml）扫描了一次（即整个工程只使用一次<context:component-scan>）
+注意，如果是只在spring的配置文件里扫描一次，那么会有页面访问url时出现404错误
 
 另外，
 https://www.cnblogs.com/caryfang/p/5675178.html
