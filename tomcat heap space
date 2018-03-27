@@ -1,0 +1,12 @@
+转自：http://elf8848.iteye.com/blog/467460
+
+----------------------windows下修改Tomcat JVM内存大小----------------------
+
+情况一:解压版本的Tomcat , 要通过startup.bat启动tomcat才能加载配置
+
+要添加在tomcat 的bin 下catalina.bat 里
+
+rem Guess CATALINA_HOME if not defined
+set CURRENT_DIR=%cd%后面添加,红色的为新添加的.
+
+set JAVA_OPTS=-Xms256m -Xmx512m -XX:PermSize=128M -XX:MaxNewSize=256m -XX:MaxPermSize=256m -Djava.awt.headless=true
