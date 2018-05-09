@@ -1,0 +1,28 @@
+来自： http://blog.sina.com.cn/s/blog_4b78098001015eoi.html
+
+1，首先将tomcat注册为服务，先打开tomcat的bin目录下service.bat文件，修改下面的值，这是sevvice的注册名称和显示名称，一般可使用默认值。
+
+set SERVICE_NAME=Tomcat5
+set PR_DISPLAYNAME=Apache Tomcat
+
+然后修改jvm大小，搜索到--JvmMs 128 --JvmMx 256 进行修改，因为做成服务启动，启动的时候就不会用到catalina.bat，也就不会读取里面的jvm设置了。
+
+然后运行cmd命令窗口，cd 到tomcat的bin目录下，运行下面的命令
+
+service.bat install
+
+运行成功过后，会提示服务已经安装成功。
+
+2，制作重启脚本restart.bat，文件内容如下
+
+net stop Tomcat5
+net start Tomcat5
+3，利用控制面板里面的“任务计划”设置第2步的脚本运行时间计划
+
+4，如果想删除服务，也很简单，先把服务停掉，然后在cmd窗口运行下面的命令即可，
+
+后面那个Tomcat5是服务名。
+
+sc delete Tomcat5
+
+需要注意的是，需要先把服务停掉，才能一次删除成功，或者删除之后再停止服务，就会发现服务已经删除成功了。
