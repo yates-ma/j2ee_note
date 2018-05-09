@@ -1,0 +1,3 @@
+会报错：org.jdom.input.JDOMParseException: Error on line 43: XML document structures
+
+解决：删除了\webapps\geoserver\data\workspaces，重新配置地图
