@@ -1,0 +1,32 @@
+参考：
+http://blog.sina.com.cn/s/blog_4b78098001015eoi.html
+https://blog.csdn.net/kai_wei_zhang/article/details/7909907
+
+1. 环境变量
+JAVA_HOME=c:\java\jdk1.8.0
+CLASSPATH=.;%JAVA_HOME%\LIB
+TOMCAT_HOME=D:\tomcat7.0
+
+2. 将tomcat安装为windows服务
+命令行cd到tomcat的bin目录下，运行：
+service.bat install
+如提示successfull则成功，不对的话，确保：
+a> 环境变量对的
+b> tomcat的bin\server.bat里下面两行等号后面的名称在windows服务里唯一
+set SERVICE_NAME=Tomcat7.0.69
+set DISPLAYNAME=Apache Tomcat 7.0.69 %SERVICE_NAME%
+c> tomcatde bin\server.bat里set "CURRENT_DIR=%cd%"下面加入
+set CATALINA_HOME=D:\java\ttt ttt\apache-tomcat-7.0.69
+
+3. 编写停止和启动tomcat的bat文件
+a> 创建文件stop_tomcat.bat，写入一句话
+net stop Tomcat7.0.69
+b> 创建文件start_tomcat.bat，里面写
+net start Tomcat7.0.69
+
+测试这两个文件是否能正常运行
+
+4. 将步骤3加入到windows任务计划里
+分别创建两个计划任务
+注意：确保stop_tomcat.bat的执行周期时间点要比start_tomcat.bat的提前一点（比如前者13:23:00，后者13:28:00）
+控制面板-计划任务-右击任务计划程序库-创建基本任务-填写描述-设置时间周期点-关联3的脚本
