@@ -10,3 +10,7 @@ set JAVA_OPTS= -server -Xms800m -Xmx800m -XX:MaxNewSize=256m
 
 链接：https://jingyan.baidu.com/article/546ae18563bacd1149f28cca.html
 我的tomcat是7.0.68-32bit
+
+但是要注意，本文和
+https://github.com/yates-ma/j2ee_note/blob/master/tomcat%20heap%20space
+可能会引起重复设置的可能，这种情况下，先将两个都不设置，然后优先设置本文的，如果成功，则上文不用设置
