@@ -1,0 +1,16 @@
+参考链接：https://blog.csdn.net/knight_key/article/details/80018981
+
+我的环境tomcat7.0.68-32位
+jdk 7
+内存8g
+
+在catalina.bat里（注意catalina.sh是linux下的修改，可以不用理会）
+
+
+rem ----- Execute The Requested Command ---------------------------------------
+set JAVA_OPTS=%JAVA_OPTS% -server -Xms1024m -Xmx1024m -XX:MaxNewSize=256m
+set JAVA_OPTS=%JAVA_OPTS% -server -XX:PermSize=256M -XX:MaxPermSize=512m
+
+
+最后加到了最开头
+set JAVA_OPTS=-Xms1024m -Xmx1024m -XX:PermSize=256M -XX:MaxNewSize=256m -XX:MaxPermSize=512m
