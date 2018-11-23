@@ -1,0 +1,27 @@
+log4j.properties
+
+# Configure logging for testing: optionally with log file
+log4j.rootLogger=DEBUG, logfile(这里加上console的话，会在控制台打印)
+
+log4j.appender.console = org.apache.log4j.ConsoleAppender
+log4j.appender.console.Target = System.out
+log4j.appender.console.Threshold=DEBUG
+log4j.appender.console.layout = org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=-%m%n
+
+log4j.appender.logfile=org.apache.log4j.DailyRollingFileAppender 
+log4j.appender.logfile.Append=true
+log4j.appender.logfile.File=${catalina.home}/logs/cloud.log
+log4j.appender.logfile.DatePattern = '.'yyyy-MM-dd
+log4j.appender.logfile.layout=org.apache.log4j.PatternLayout 
+log4j.appender.logfile.layout.ConversionPattern=%-d{yyyy-MM-dd HH\:mm\:ss} [%c]-[%p] %m%n 
+
+log4j.logger.com.ibatis=DEBUG
+log4j.logger.com.ibatis.common.jdbc.SimpleDataSource=DEBUG
+log4j.logger.com.ibatis.common.jdbc.ScriptRunner=DEBUG
+log4j.logger.com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate=DEBUG
+log4j.logger.java.sql.Connection=DEBUG
+log4j.logger.java.sql.Statement=DEBUG
+log4j.logger.java.sql.PreparedStatement=DEBUG
+
+note: 在web.xml中并没有配置log4j.proterties的引入，也可以启用它？
