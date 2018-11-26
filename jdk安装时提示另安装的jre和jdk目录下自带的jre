@@ -1,0 +1,11 @@
+来自：http://www.cnblogs.com/gaigaichen/p/6262872.html
+
+D:\java\jdk-1.7\jre
+D:\java\jre-1.7
+具备开发功能的jdk自己的jre下才会同时有client性质的jvm和server性质的 jvm，而仅仅作为运行环境的jre（安装jdk中途提示安装的jre）下只需要client性质的jvm.dll就够了。
+
+环境变量：
+
+CLASSPATH=.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar(注意最前面有一点)
+JAVA_HOME=D:\java\jdk-1.7
+path=%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;
