@@ -1,0 +1,29 @@
+    public static void printWsInterruptedLog(Exception ee) {
+        FileWriter fw = null;
+        try {
+        //如果文件存在，则追加内容；如果文件不存在，则创建文件
+        File f=new File("D:/ws_7_log.txt");
+        fw = new FileWriter(f, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PrintWriter pw = new PrintWriter(fw);
+        pw.println(new Date());
+        pw.println("=== toString() ===");
+        pw.println(ee.toString());
+        pw.println("=== getLocalizedMessage() ===");
+        pw.println(ee.getLocalizedMessage());
+        pw.println("=== getMessage() ===");
+        pw.println(ee.getMessage());
+        pw.println("=== printStackTrace() ===");
+        ee.printStackTrace(pw);
+        pw.println();
+        pw.flush();
+        try {
+            fw.flush();
+            pw.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
