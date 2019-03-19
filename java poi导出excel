@@ -1,0 +1,51 @@
+1. js:
+location.href = url+"?"+"a="+aVal+"&b="+bVal+"&fileName="+fileName;
+或
+window.open(url+"?"+"a="+aVal+"&b="+bVal+"&fileName="+fileName);
+
+2. java
+
+    String aVal = request.getParameter("a");
+	  String bVal = request.getParameter("b");
+    //...请求得到导出数据,本例用allAlarm
+    List<TGaojingDTO> allAlarm = new ArrayList<TGaojingDTO>();//allAlarm是需要导出的数据    
+    
+    response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("content-disposition", "attachment;filename=" + new String(fileName.getBytes(), "ISO8859-1") + ".xls" );//重要,否则生成的文件没有文件名称
+		OutputStream out = response.getOutputStream();  
+		
+    String[] headers = new String[]{"报警类型","报警对象","关联设备ID","告警时间", "告警信息", "处理人", "处理时间", "处理办法"};  
+        
+    //声明一个工作簿  
+    SXSSFWorkbook workbook = new SXSSFWorkbook();  
+    //生成一个表格  
+    Sheet sheet = workbook.createSheet("mySheet");  
+    //设置表格默认列宽度为20个字符  
+    sheet.setDefaultColumnWidth(20);  
+    //产生表格标题行  
+    Row row = sheet.createRow(0);  
+    for(int i = 0; i<headers.length;i++){  
+        row.createCell(i).setCellValue(headers[i]);
+    }
+    
+    for (int i=0; i<allAlarm.size(); i++) {
+      TGaojingDTO alarm = allAlarm.get(i);
+        row = sheet.createRow(i+1);  
+        int j = 0;  
+        row.createCell(j++).setCellValue(alarm.getType());
+        row.createCell(j++).setCellValue(alarm.getManOrVisitorName());
+        row.createCell(j++).setCellValue(alarm.getUserid());
+        row.createCell(j++).setCellValue(alarm.getTime());
+        row.createCell(j++).setCellValue(alarm.getInfo());
+        row.createCell(j++).setCellValue(alarm.getHandleman());
+        row.createCell(j++).setCellValue(alarm.getHandletime());
+        row.createCell(j++).setCellValue(alarm.getHandleway());
+		}
+    try {  
+        workbook.write(out);  
+        out.close();
+        _this.alarmExportState = "ok";//_this是当前类, 客户端可以定时请求后端, 根据字段alarmExportState判断导出是否完成
+    } catch (IOException e) {
+        e.printStackTrace();
+    } 
