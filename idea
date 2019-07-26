@@ -1,3 +1,3 @@
 在idea中启动tomcat时控制台输出错误问题：
 https://www.cnblogs.com/sxdcgaq8080/p/7648400.html
-注意13楼解决了我的问题
+注意13楼解决了我的问题（ Help-- custom vm options 添加-Dfile.encoding=UTF-8）
