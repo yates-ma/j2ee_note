@@ -1,0 +1,9 @@
+Eclipse安装
+1. 安装findbugs:
+  https://blog.csdn.net/qq_29229567/article/details/84881424
+  Help -> Install new SoftWare -> Work with -> All -> (Name任意输入，Location输入: http://findbugs.cs.umd.edu/eclipse)
+  等待一会下载完成后，重启Eclipse
+2. 安装findbugs插件
+  http://h3xstream.github.io/find-sec-bugs/download.htm
+  (https://blog.csdn.net/hxpjava1/article/details/78515623)
+  Window-Preferences-Java-Findbugs-Plugins and misc. Settings-Add-在目录下选中扩展包
