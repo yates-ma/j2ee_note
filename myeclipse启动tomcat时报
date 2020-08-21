@@ -1,0 +1,5 @@
+java.lang.Error: Unresolved compilation problems
+
+
+原因：装了多个版本的jdk，MyEclipse使用默认版本，使得 IDE 的Compiler Compliance level 与 Installed JREs 版本不对应而导致错误
+解决：右击工程-properties-Java Compiler-Compiler complience level
